@@ -21,4 +21,10 @@
                             , SYSDATE
                             , DEFAULT)
 	</entry>
+	
+	<entry key="userIdCheck">
+		SELECT COUNT(*) COUNT
+		FROM MEMBER
+		WHERE USER_ID = ?
+	</entry>
 </properties>

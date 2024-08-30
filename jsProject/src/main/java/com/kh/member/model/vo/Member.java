@@ -52,6 +52,14 @@ public class Member {
 		this.address = address;
 		this.interest = interest;
 	}
+	
+	// * ajax 테스트용 생성자
+	public Member(int userNo, String userName, String userId, String address) {
+		this.userNo = userNo;
+		this.userName = userName;
+		this.userId = userId;
+		this.address = address;
+	}
 
 	public int getUserNo() {
 		return userNo;

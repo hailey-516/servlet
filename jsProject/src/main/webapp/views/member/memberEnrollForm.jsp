@@ -35,6 +35,9 @@
 					<td>
 						<input type="text" name="userId" maxlength="12" required>
 					</td>
+					<td>
+						<input type="button" value="중복체크" onclick="idCheck();">
+					</td>
 				</tr>
 				<tr>
 					<td>* 비밀번호</td>
@@ -99,12 +102,49 @@
 		<br><br>
 
 		<div align="center">
-		<button type="submit">회원가입</button>
+		<button type="submit" onclick="return pwdCheck();" disabled>회원가입</button>
 		<button type="reset">초기화</button>
 		</div>
 
 		<br><br>
 	</form>
 	</div>
+
+	<script>
+		function pwdCheck() {
+			const pwd = document.querySelector("#enroll-form input[name=userPwd]").value;
+			const pwdCheck = document.querySelector("#enroll-form input[name=userPwdCheck]").value;
+
+			if (pwd != pwdCheck) {
+				alert("비밀번호와 비밀번호 확인 입력 값이 다릅니다.");
+				return false;
+			}
+		};
+
+		function idCheck() {
+			// 중복체크 버튼 클릭 시 사용자가 입력한 아이디 값을 서버로 보내서
+			// 중복되는 데이터가 있는지 조회한 후에 결과를 받을 것임
+			
+			// (1) 사용 가능 => 사용 가능합니다. 메시지 출력, 회원가입 버튼을 활성화
+			// (2) 사용 불가능 => 사용할 수 없는 아이디입니다. 메시지 출력, 다시 입력할 수 있도록 유도
+
+			const userId = $("#enroll-form input[name=userId]").val();
+
+			console.log("userId: " + userId);
+
+			console.log("*** ajax 요청 전 ***");
+			$.ajax({
+				url: 'idCheck.me',
+				type: 'get',
+				data: { userId: userId },
+				success: function(result) {
+					// result ==> 중복된 아이디가 있을 경우 ("NNN"), 없을 경우 ("NNY")
+				},
+				error: function(err) {
+					console.log(err);
+				}
+			});
+		}
+	</script>
 </body>
 </html>
