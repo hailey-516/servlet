@@ -139,6 +139,13 @@
 				data: { userId: userId },
 				success: function(result) {
 					// result ==> 중복된 아이디가 있을 경우 ("NNN"), 없을 경우 ("NNY")
+					if(result == 'NNN') {
+						alert("사용 가능합니다.");
+						
+					} else {
+						alert("사용할 수 없는 아이디입니다.");
+						$("enroll-form input[name=userId]").focus();
+					}
 				},
 				error: function(err) {
 					console.log(err);

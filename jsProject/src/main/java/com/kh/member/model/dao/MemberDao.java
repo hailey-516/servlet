@@ -103,4 +103,29 @@ public class MemberDao {
 		return result;
 	}
 
+	public int idCheck(Connection conn, String userId) {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("userIdCheck");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			
+			count = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return count;
+		
+	}
+
 }

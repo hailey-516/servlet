@@ -38,4 +38,14 @@ public class MemberService {
 		return result;
 	}
 
+	public int idCheck(String userId) {
+		Connection conn = getConnection();
+		
+		int count = new MemberDao().idCheck(conn, userId);
+		
+		close(conn);
+		
+		return count;
+	}
+
 }
