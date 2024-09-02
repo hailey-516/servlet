@@ -66,7 +66,7 @@ public class LoginController extends HttpServlet {
 			
 			// 메인 페이지(첫페이지, index.jsp)로 응답
 			// * 포워딩 방식 -> 요청한 url이 변경되지 않음 (xxx/login.me)
-			// request.getRequestDispatcher("index.jsp").forward(request, response);;
+//			 request.getRequestDispatcher("index.jsp").forward(request, response);
 			
 			// localhost:8090/jsp/ 요청 시 index.jsp 페이지가 보여짐
 			// * url 재요청 방식

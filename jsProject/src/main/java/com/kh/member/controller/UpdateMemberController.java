@@ -62,7 +62,6 @@ public class UpdateMemberController extends HttpServlet {
 		
 		// 변경한 내용도 보여줘야 하고, 세션에 있는 내용도 바꿔 줘야 하기 때문에 멤버 타입으로 받음
 		Member updateMem = new MemberService().updateMember(m);
-		System.out.println(updateMem.toString());
 		
 		if (updateMem == null) {	// 정보 수정 실패
 			// 정보 수정 실패 메시지와 함께 에러 페이지로 응답
@@ -79,7 +78,7 @@ public class UpdateMemberController extends HttpServlet {
 			session.setAttribute("alertMsg", "정보 수정에 성공했습니다!");
 			
 			// 마이페이지로 url 재요청(/jsp/myPage.me)
-			response.sendRedirect("/jsp/myPage.me");
+			response.sendRedirect(request.getContextPath() + "/myPage.me");
 		}
 	}
 
