@@ -60,6 +60,17 @@ public class Member {
 		this.userId = userId;
 		this.address = address;
 	}
+	
+	// * 정보 수정 시 사용할 생성자
+	public Member(String userId, String userName, String phone, String email, String address, String interest) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+		this.phone = phone;
+		this.email = email;
+		this.address = address;
+		this.interest = interest;
+	}
 
 	public int getUserNo() {
 		return userNo;
@@ -131,12 +142,12 @@ public class Member {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Member [userNo=" + userNo + ", userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName
-				+ ", email=" + email + ", address=" + address + ", interest=" + interest + ", enrollDate=" + enrollDate
-				+ ", modifyDate=" + modifyDate + ", status=" + status + "]";
+				+ ", phone=" + phone + ", email=" + email + ", address=" + address + ", interest=" + interest
+				+ ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate + ", status=" + status + "]";
 	}
 	
 	

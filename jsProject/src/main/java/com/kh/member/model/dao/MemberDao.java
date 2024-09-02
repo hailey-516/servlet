@@ -104,19 +104,59 @@ public class MemberDao {
 	}
 
 	public int idCheck(Connection conn, String userId) {
+		// 필요한 변수 정의
 		int count = 0;
+		
 		PreparedStatement pstmt = null;
+		ResultSet rset = null;
 		
 		String sql = prop.getProperty("userIdCheck");
 		
+		// JDBC 객체 생성 및 쿼리문 실행
 		try {
 			
-			pstmt = conn.prepareStatement(sql);
+			pstmt = conn.prepareStatement(sql);	// 미완성 sql
 			
 			pstmt.setString(1, userId);
 			
-			count = pstmt.executeUpdate();
+			rset = pstmt.executeQuery();
 			
+			if(rset.next()) {
+				count = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// 생성했던 객체 반납(close) -> 역순
+			close(rset);
+			close(pstmt);
+		}
+		
+		// 결과 반환(return)
+		return count;
+		
+	}
+
+	public int updateMember(Connection conn, Member m) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateMember");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);	// 미완성 sql
+			
+			pstmt.setString(1, m.getUserName());
+			pstmt.setString(2, m.getPhone());
+			pstmt.setString(3, m.getEmail());
+			pstmt.setString(4, m.getAddress());
+			pstmt.setString(5, m.getInterest());
+			pstmt.setString(6, m.getUserId());
+			
+			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -124,8 +164,45 @@ public class MemberDao {
 			close(pstmt);
 		}
 		
-		return count;
+		return result;
+	}
+
+	public Member selectMember(Connection conn, String userId) {
+		Member m = null;
 		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectMember");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				m = new Member(rset.getInt("user_no")
+						, rset.getString("user_id")
+						, rset.getString("user_pwd")
+						, rset.getString("user_name")
+						, rset.getString("phone")
+						, rset.getString("email")
+						, rset.getString("address")
+						, rset.getString("interest")
+						, rset.getDate("enroll_date")
+						, rset.getDate("modify_date")
+						, rset.getString("status")
+						);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return m;
 	}
 
 }

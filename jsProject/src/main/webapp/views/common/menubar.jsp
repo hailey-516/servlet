@@ -71,7 +71,7 @@
 		                </tr>
 		                <tr>
 		                    <th colspan="2">
-		                        <button type="submit">로그인</button>
+		            	        <button type="submit">로그인</button>
 		                        <button type="button" onclick="enrollPage();">회원가입</button>
 		                    </th>
 		                </tr>
@@ -95,7 +95,7 @@
             <b>${ loginUser.userName }</b>님의 방문을 환영합니다 ^^ <br><br>
 
             <div align="center">
-                <a href="#">마이페이지</a>
+                <a href="<%= contextPath %>/myPage.me">마이페이지</a>
                 <a href="<%= contextPath %>/logout.me">로그아웃</a>
             </div>
         </div>
@@ -108,7 +108,7 @@
 
     <!-- .nav-area>.menu*4 -->
     <div class="nav-area" align="center">
-        <div class="menu"><a href="#">HOME</a></div>
+        <div class="menu"><a href="<%= contextPath %>">HOME</a></div>
         <div class="menu"><a href="#">공지사항</a></div>
         <div class="menu"><a href="#">일반게시판</a></div>
         <div class="menu"><a href="#">사진게시판</a></div>

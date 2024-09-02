@@ -128,23 +128,30 @@
 			// (1) 사용 가능 => 사용 가능합니다. 메시지 출력, 회원가입 버튼을 활성화
 			// (2) 사용 불가능 => 사용할 수 없는 아이디입니다. 메시지 출력, 다시 입력할 수 있도록 유도
 
-			const userId = $("#enroll-form input[name=userId]").val();
+			// const userId = $("#enroll-form input[name=userId]").val();
+			const idEle = $("#enroll-form input[name=userId]");
 
-			console.log("userId: " + userId);
+			// console.log("userId: " + userId);
+			console.log("userId: " + idEle.val());
 
 			console.log("*** ajax 요청 전 ***");
 			$.ajax({
 				url: 'idCheck.me',
 				type: 'get',
-				data: { userId: userId },
+				// data: { userId: userId },
+				data: {userId: idEle.val() },
 				success: function(result) {
 					// result ==> 중복된 아이디가 있을 경우 ("NNN"), 없을 경우 ("NNY")
-					if(result == 'NNN') {
+					console.log(result);
+					if(result == 'NNY') {
 						alert("사용 가능합니다.");
-						
+						$("#enroll-form button[type=submit]").removeAttr("disabled");
+
 					} else {
-						alert("사용할 수 없는 아이디입니다.");
-						$("enroll-form input[name=userId]").focus();
+						alert("사용할 수 없는 아이디입니다. 다시 입력해주세요.");
+
+						// $("#enroll-form input[name=userId]").focus(); -> jQuery 방식으로 접근했을 때 사용 가능...
+						idEle.focus();
 					}
 				},
 				error: function(err) {
