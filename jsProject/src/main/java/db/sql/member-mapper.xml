@@ -45,4 +45,16 @@
 		WHERE USER_ID = ? AND STATUS = 'Y'
 	</entry>
 	
+	<entry key="updatePassword">
+		UPDATE MEMBER
+    		SET USER_PWD = ?
+		WHERE USER_ID = ? AND USER_PWD = ? AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="deleteMember">
+		UPDATE MEMBER
+			SET STATUS = 'N'
+		WHERE USER_ID = ? AND USER_PWD = ?
+	</entry>
+	
 </properties>

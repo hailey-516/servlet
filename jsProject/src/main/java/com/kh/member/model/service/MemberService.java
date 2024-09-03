@@ -79,4 +79,47 @@ public class MemberService {
 		return updateMem;
 	}
 
+	public Member updatePassword(String userId, String userPwd, String newPassword) {
+		Member m = null;
+		
+		Connection conn = getConnection();
+		
+		// update(DML) -> int --> 트랜잭션 처리
+		int result = new MemberDao().updatePassword(conn, userId, userPwd, newPassword);
+		
+		if(result > 0) {
+			// 비밀번호 변경 성공
+			commit(conn);
+			
+			// 사용자 정보 조회 -> 아이디 기준으로 조회
+			m = new MemberDao().selectMember(conn, userId);
+		} else {
+			// 비밀번호 변경 실패
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return m;
+	}
+	
+	public int deleteMember(String userId, String userPwd) {
+		int result = 0;
+		
+		Connection conn = getConnection();
+		
+		result = new MemberDao().deleteMember(conn, userId, userPwd);
+		
+		// DML(update) -> int --> 트랜잭션 처리!
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
 }

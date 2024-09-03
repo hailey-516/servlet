@@ -65,7 +65,7 @@ public class UpdateMemberController extends HttpServlet {
 		
 		if (updateMem == null) {	// 정보 수정 실패
 			// 정보 수정 실패 메시지와 함께 에러 페이지로 응답
-			request.setAttribute("errorMsg", "정보 수정 실패!");
+			request.setAttribute("errorMsg", "정보 수정 실패했습니다. 관리자에게 문의바랍니다.");
 			
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			

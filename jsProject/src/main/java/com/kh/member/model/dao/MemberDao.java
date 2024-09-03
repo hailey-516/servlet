@@ -170,6 +170,8 @@ public class MemberDao {
 	public Member selectMember(Connection conn, String userId) {
 		Member m = null;
 		
+		// 사용자 아이디에 해당하는 정보를 조회(SELECT)하여 Member 객체에 담아 전달
+		// SELECT -> ResultSet --> Member
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -200,9 +202,63 @@ public class MemberDao {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 
 		return m;
+	}
+
+	public int updatePassword(Connection conn, String userId, String userPwd, String newPassword) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updatePassword");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, newPassword);
+			pstmt.setString(2, userId);
+			pstmt.setString(3, userPwd);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteMember(Connection conn, String userId, String userPwd) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteMember");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userPwd);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
 	}
 
 }
