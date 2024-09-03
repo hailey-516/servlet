@@ -40,7 +40,7 @@
 				<tr>
 					<td>* 이름</td>
 					<td>
-						<input type="text" name="userName" maxlength="6" value="${ loginUser.userName}" required>
+						<input type="text" name="userName" maxlength="6" value="${ loginUser.userName }" required>
 					</td>
 				</tr>
 				<tr>
